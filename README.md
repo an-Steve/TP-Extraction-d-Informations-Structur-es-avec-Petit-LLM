@@ -35,10 +35,9 @@ Le projet est organisé en **4 étapes principales**, depuis la préparation des
 |  **Étape 3** | 🤖 **Extraction avec le Small LLM** | Envoi des données au modèle local via **Ollama** et traitement de sa réponse.                  | Extraire automatiquement les informations pertinentes à partir du texte fourni. |
 |  **Étape 4** | 📊 **Analyse et visualisation**     | Évaluation des résultats obtenus à l'aide de métriques et de graphiques.                       | Mesurer la qualité de l'extraction et visualiser les performances du modèle.    |
 
-
-```
 ###  Architecture du projet
 
+```
 TP-Extraction-d-Informations-Structurées-avec-Petit-LLM/
 │
 ├── 📁 backend/                         # Backend Python / API
