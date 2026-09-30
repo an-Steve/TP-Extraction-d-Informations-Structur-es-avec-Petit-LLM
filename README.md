@@ -26,90 +26,165 @@ Voici quelques illustrations et captures d'écran présentant le fonctionnement 
 
 
 
-<img width="237" height="852" alt="image" src="https://github.com/user-attachments/assets/f908f8c3-80c6-45a1-a714-30de2d96c966" />
-<img width="237" height="850" alt="image" src="https://github.com/user-attachments/assets/09292c5f-650e-48eb-9c8d-ec5610749a09" />
+| Capture 1 | Capture 2 |
+|:---:|:---:|
+| <img src="https://github.com/user-attachments/assets/f908f8c3-80c6-45a1-a714-30de2d96c966" width="180"> | <img src="https://github.com/user-attachments/assets/09292c5f-650c-48eb-9c8d-ec5610749a09" width="180"> |
 
-🛠️ Outils & Technologies Utilisés
+## 🛠️ Outils & Technologies Utilisés
 
-    Langage principal : Python
+* **Langage principal :** Python
+* **Backend & API :** Flask / Python
+* **Intelligence Artificielle / LLM :** Small LLM (Petit Modèle de Langage pour l'extraction d'information)
+* **Environnement Virtuel :** `venv` (PowerShell / Windows)
+* **Interface Web :** HTML, CSS, JavaScript (avec prise en charge du thème Sombre/Clair)
 
-    Backend & API : Flask / Python
+## 📂 Architecture du projet
 
-    Intelligence Artificielle / LLM : Small LLM (Petit Modèle de Langage pour l'extraction d'information)
-
-    Environnement Virtuel : venv (PowerShell / Windows)
-
-    Interface Web : HTML, CSS, JavaScript
-
-📂 Architecture du projet
-
-L'organisation générale du projet est la suivante :
-
-TP-Extraction-d-Informations-Structur-es-avec-Petit-LLM/
+```text
+TP-Extraction-d-Informations-Structurées-avec-Petit-LLM/
 │
-├── backend/
-│   ├── main.py
-│   ├── ollama_service.py
-│   ├── prompt_service.py
-│   └── schemas.py
+├── 📁 backend/                         # Backend Python / API
+│   ├── 🐍 main.py                     # Point d'entrée de l'application Flask
+│   ├── 🤖 ollama_service.py           # Communication avec Ollama et le LLM
+│   ├── 💬 prompt_service.py           # Création et gestion des prompts
+│   └── 📋 schemas.py                  # Schémas et structures des données
 │
-├── frontend/
-│   ├── index.html
-│   ├── style.css
-│   └── script.js
+├── 📁 frontend/                        # Interface utilisateur
+│   ├── 🌐 index.html                  # Structure de la page web
+│   ├── 🎨 style.css                   # Mise en forme et design
+│   └── ⚡ script.js                    # Interactions et communication avec le backend
 │
-├── 1-Basic_Prompt_Structure.ipynb
-├── 2-Output_Configuration.ipynb
-├── 3-Role_Prompting.ipynb
-├── 4-Separating_Data_and_Instructions.ipynb
-├── 5-Formatting_Output_and_Speaking.ipynb
-├── 6-Few_Shot_Prompting.ipynb
+├── 📁 notebooks/                       # Expérimentations Prompt Engineering
+│   ├── 1-Basic_Prompt_Structure.ipynb
+│   ├── 2-Output_Configuration.ipynb
+│   ├── 3-Role_Prompting.ipynb
+│   ├── 4-Separating_Data_and_Instructions.ipynb
+│   ├── 5-Formatting_Output_and_Speaking.ipynb
+│   └── 6-Few_Shot_Prompting.ipynb
 │
-├── GUIDE_TP.md
-├── NOTEBOOK_1.md
-├── NOTEBOOK_2.md
-├── NOTEBOOK_3.md
-├── NOTEBOOK_4.md
-├── NOTEBOOK_5.md
-├── NOTEBOOK_6.md
+├── 📚 Documentation/
+│   ├── GUIDE_TP.md                    # Guide général du TP
+│   ├── NOTEBOOK_1.md                   # Documentation du notebook 1
+│   ├── NOTEBOOK_2.md                   # Documentation du notebook 2
+│   ├── NOTEBOOK_3.md                   # Documentation du notebook 3
+│   ├── NOTEBOOK_4.md                   # Documentation du notebook 4
+│   ├── NOTEBOOK_5.md                   # Documentation du notebook 5
+│   └── NOTEBOOK_6.md                   # Documentation du notebook 6
 │
-├── PHASE_1.md
-├── PHASE_2.md
-├── PHASE_3.md
-├── RAPPORT_ANALYSE_NOTEBOOK
-├── RESUME_SESSION
+├── 📊 Phases du projet/
+│   ├── PHASE_1.md                      # Première phase du projet
+│   ├── PHASE_2.md                      # Deuxième phase du projet
+│   └── PHASE_3.md                      # Troisième phase du projet
 │
-├── requirements.txt
-├── run.bat
-├── test_ollama.py
-├── .gitignore
-└── README.md
+├── 📄 RAPPORT_ANALYSE_NOTEBOOK        # Analyse des expérimentations
+├── 📝 RESUME_SESSION                   # Résumé du travail réalisé
+│
+├── 📦 requirements.txt                 # Dépendances Python
+├── ▶️ run.bat                          # Lancement rapide de l'application
+├── 🧪 test_ollama.py                   # Test de connexion avec Ollama
+├── 🔒 .gitignore                       # Fichiers exclus du dépôt Git
+└── 📖 README.md                        # Documentation principale du projet
+```
 
-Remarque concernant les fichiers confidentiels :
+### 🔎 Description des principales parties
 
-Certains fichiers, données, configurations ou informations utilisés pendant le développement du projet ne sont volontairement pas présents dans le dépôt GitHub.
+| Dossier / Fichier       | Description                                                                   |
+| ----------------------- | ----------------------------------------------------------------------------- |
+| **`backend/`**          | Contient toute la logique serveur et les services Python.                     |
+| **`frontend/`**         | Contient l'interface web de l'application.                                    |
+| **`notebooks/`**        | Regroupe les expérimentations liées au Prompt Engineering.                    |
+| **`Documentation/`**    | Contient les guides et explications du projet.                                |
+| **`Phases du projet/`** | Présente les différentes étapes de réalisation.                               |
+| **`requirements.txt`**  | Liste les bibliothèques Python nécessaires au fonctionnement du projet.       |
+| **`test_ollama.py`**    | Permet de vérifier la communication avec Ollama.                              |
+| **`.gitignore`**        | Empêche certains fichiers locaux ou sensibles d'être envoyés sur GitHub.      |
+| **`README.md`**         | Présente le projet, son installation, son fonctionnement et son architecture. |
 
-Ces éléments peuvent contenir des informations confidentielles, des données privées, des clés ou tokens d'accès, des configurations locales ou d'autres informations qui ne doivent pas être publiées.
+> 🔐 **Confidentialité :** certains fichiers, données, configurations ou ressources utilisés pendant le développement ne sont volontairement pas présents dans le dépôt GitHub. Ils peuvent contenir des informations confidentielles ou des éléments spécifiques à l'environnement local.
 
-Le dépôt contient donc uniquement les fichiers nécessaires à la compréhension et à la présentation du projet, tandis que certains éléments sensibles restent uniquement dans l'environnement local.
+#  Installation et lancement
 
-🚀 Installation et Lancement
-1. Activer l'environnement virtuel Python
+## 1. Activer l'environnement virtuel Python
 
-Sous Windows (PowerShell), exécutez la commande suivante pour activer l'environnement virtuel :
-PowerShell
+Sous **Windows PowerShell**, activez l'environnement virtuel avec la commande suivante :
 
+```powershell
 .\venv\Scripts\Activate.ps1
+```
 
-2. Démarrer le serveur backend
+Une fois l'environnement activé, vous devriez voir **`(venv)`** apparaître au début de votre terminal :
 
-Une fois l'environnement virtuel activé, lancez le serveur Flask :
-PowerShell
+```text
+(venv) PS C:\...\TP-Extraction-d-Informations-Structur-es-avec-Petit-LLM>
+```
 
+> 💡 **Remarque :** si l'environnement virtuel n'existe pas encore, vous pouvez le créer avec :
+>
+> ```powershell
+> python -m venv venv
+> ```
+
+---
+
+## 2. Installer les dépendances
+
+Avec l'environnement virtuel activé, installez les dépendances nécessaires au projet :
+
+```powershell
+pip install -r requirements.txt
+```
+
+---
+
+## 3. Démarrer le serveur backend
+
+Une fois les dépendances installées, lancez le serveur Flask avec :
+
+```powershell
 python .\backend\main.py
+```
 
-3. Accéder au site web
+Le backend démarre alors sur le serveur local.
 
-Ouvrez votre navigateur web et rendez-vous à l'adresse suivante :
+---
 
-👉 http://localhost:5000/
+## 4. Accéder à l'application web
+
+Ouvrez votre navigateur et rendez-vous à l'adresse suivante :
+
+👉 **http://localhost:5000/**
+
+L'interface web de l'application sera alors accessible localement.
+
+---
+
+## ⚡ Résumé des commandes
+
+Pour lancer rapidement le projet après son installation :
+
+```powershell
+.\venv\Scripts\Activate.ps1
+python .\backend\main.py
+```
+
+Puis ouvrez :
+
+```text
+http://localhost:5000/
+```
+
+---
+
+## 🛑 Arrêter le serveur
+
+Pour arrêter le serveur Flask, retournez dans le terminal où il est exécuté et utilisez :
+
+```text
+Ctrl + C
+```
+
+L'environnement virtuel peut ensuite être désactivé avec :
+
+```powershell
+deactivate
+```
