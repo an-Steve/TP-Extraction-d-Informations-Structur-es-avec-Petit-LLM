@@ -30,10 +30,10 @@ Le projet est organisé en **4 étapes principales**, depuis la préparation des
 
 | Étape          | Intitulé                            | Description                                                                                    | Objectif                                                                        |
 | -------------- | ----------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| 🟦 **Étape 1** | 📝 **Préparation du prompt**        | Définition des instructions données au Small LLM afin de guider l'extraction des informations. | Construire un prompt clair et précis pour obtenir des résultats structurés.     |
-| 🟩 **Étape 2** | ⚙️ **Configuration de la sortie**   | Définition du format attendu pour les informations extraites par le modèle.                    | Obtenir une sortie structurée, exploitable et cohérente.                        |
-| 🟨 **Étape 3** | 🤖 **Extraction avec le Small LLM** | Envoi des données au modèle local via **Ollama** et traitement de sa réponse.                  | Extraire automatiquement les informations pertinentes à partir du texte fourni. |
-| 🟥 **Étape 4** | 📊 **Analyse et visualisation**     | Évaluation des résultats obtenus à l'aide de métriques et de graphiques.                       | Mesurer la qualité de l'extraction et visualiser les performances du modèle.    |
+|  **Étape 1** | 📝 **Préparation du prompt**        | Définition des instructions données au Small LLM afin de guider l'extraction des informations. | Construire un prompt clair et précis pour obtenir des résultats structurés.     |
+|  **Étape 2** | ⚙️ **Configuration de la sortie**   | Définition du format attendu pour les informations extraites par le modèle.                    | Obtenir une sortie structurée, exploitable et cohérente.                        |
+|  **Étape 3** | 🤖 **Extraction avec le Small LLM** | Envoi des données au modèle local via **Ollama** et traitement de sa réponse.                  | Extraire automatiquement les informations pertinentes à partir du texte fourni. |
+|  **Étape 4** | 📊 **Analyse et visualisation**     | Évaluation des résultats obtenus à l'aide de métriques et de graphiques.                       | Mesurer la qualité de l'extraction et visualiser les performances du modèle.    |
 
 
 ```
