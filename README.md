@@ -24,8 +24,19 @@ Voici quelques illustrations et captures d'écran présentant le fonctionnement 
 <img width="1655" height="745" alt="image" src="https://github.com/user-attachments/assets/ae72d30e-0f78-4475-a812-e45a56e5076a" />
 <img width="1917" height="185" alt="image" src="https://github.com/user-attachments/assets/0577f79e-687d-49bf-8e7b-3f73cdb34b08" />
 
+##  Étapes du projet
+
+Le projet est organisé en **4 étapes principales**, depuis la préparation des données jusqu'à l'analyse des résultats.
+
+| Étape          | Intitulé                            | Description                                                                                    | Objectif                                                                        |
+| -------------- | ----------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| 🟦 **Étape 1** | 📝 **Préparation du prompt**        | Définition des instructions données au Small LLM afin de guider l'extraction des informations. | Construire un prompt clair et précis pour obtenir des résultats structurés.     |
+| 🟩 **Étape 2** | ⚙️ **Configuration de la sortie**   | Définition du format attendu pour les informations extraites par le modèle.                    | Obtenir une sortie structurée, exploitable et cohérente.                        |
+| 🟨 **Étape 3** | 🤖 **Extraction avec le Small LLM** | Envoi des données au modèle local via **Ollama** et traitement de sa réponse.                  | Extraire automatiquement les informations pertinentes à partir du texte fourni. |
+| 🟥 **Étape 4** | 📊 **Analyse et visualisation**     | Évaluation des résultats obtenus à l'aide de métriques et de graphiques.                       | Mesurer la qualité de l'extraction et visualiser les performances du modèle.    |
 
 
+```
 ###  Architecture du projet
 
 | | |
@@ -136,25 +147,6 @@ Le projet intègre plusieurs types de **graphiques et d'indicateurs visuels** pe
 
 ---
 
-### 🎯 Objectif des visualisations
-
-L'ensemble de ces graphiques permet de disposer d'une **vue synthétique des résultats de l'extraction d'informations**.
-
-Ils facilitent notamment :
-
-```text
-Données extraites
-        ↓
-Analyse des entités
-        ↓
-Visualisation des résultats
-        ↓
-Évaluation des performances
-        ↓
-Interprétation des résultats
-```
-
-Les visualisations constituent ainsi un complément à l'extraction structurée réalisée par le LLM et rendent les résultats plus **lisibles, comparables et faciles à interpréter**.
 
 
 #  Installation et lancement
