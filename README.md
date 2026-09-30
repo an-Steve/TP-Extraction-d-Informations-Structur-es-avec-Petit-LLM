@@ -41,6 +41,7 @@ Voici quelques illustrations et captures d'écran présentant le fonctionnement 
 
 ##  Architecture du projet
 
+```
 TP-Extraction-d-Informations-Structurées-avec-Petit-LLM/
 │
 ├── 📁 backend/                         # Backend Python / API
@@ -84,9 +85,9 @@ TP-Extraction-d-Informations-Structurées-avec-Petit-LLM/
 ├── 🧪 test_ollama.py                   # Test de connexion avec Ollama
 ├── 🔒 .gitignore                       # Fichiers exclus du dépôt Git
 └── 📖 README.md                        # Documentation principale du projet
+```
 
-
-###  Description des principales parties
+### 🔎 Description des principales parties
 
 | Dossier / Fichier       | Description                                                                   |
 | ----------------------- | ----------------------------------------------------------------------------- |
