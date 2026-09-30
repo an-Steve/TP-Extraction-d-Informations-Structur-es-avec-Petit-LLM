@@ -37,8 +37,7 @@ Le projet est organisé en **4 étapes principales**, depuis la préparation des
 
 
 ```
-```
-###  Architecture du proj
+###  Architecture du projet
 
 TP-Extraction-d-Informations-Structurées-avec-Petit-LLM/
 │
@@ -84,7 +83,7 @@ TP-Extraction-d-Informations-Structurées-avec-Petit-LLM/
 ├── 🔒 .gitignore                       # Fichiers exclus du dépôt Git
 └── 📖 README.md                        # Documentation principale du projet
 
-
+```
 ###  Description des principales parties
 
 | Dossier / Fichier       | Description                                                                   |
