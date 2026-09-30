@@ -37,22 +37,9 @@ Le projet est organisé en **4 étapes principales**, depuis la préparation des
 
 
 ```
-###  Architecture du projet
-
-| | |
-|:---:|:---:|
-| <img src="https://github.com/user-attachments/assets/f908f8c3-80c6-45a1-a714-30de2d96c966" width="120" alt="Architecture du projet"> | <img src="https://github.com/user-attachments/assets/09292c5f-650e-48eb-9c8d-ec5610749a09" width="120" alt="Architecture du projet"> |
-## 🛠️ Outils & Technologies Utilisés
-
-* **Langage principal :** Python
-* **Backend & API :** Flask / Python
-* **Intelligence Artificielle / LLM :** Small LLM (Petit Modèle de Langage pour l'extraction d'information)
-* **Environnement Virtuel :** `venv` (PowerShell / Windows)
-* **Interface Web :** HTML, CSS, JavaScript (avec prise en charge du thème Sombre/Clair)
-
-##  Architecture du projet
-
 ```
+###  Architecture du proj
+
 TP-Extraction-d-Informations-Structurées-avec-Petit-LLM/
 │
 ├── 📁 backend/                         # Backend Python / API
@@ -96,9 +83,9 @@ TP-Extraction-d-Informations-Structurées-avec-Petit-LLM/
 ├── 🧪 test_ollama.py                   # Test de connexion avec Ollama
 ├── 🔒 .gitignore                       # Fichiers exclus du dépôt Git
 └── 📖 README.md                        # Documentation principale du projet
-```
 
-### 🔎 Description des principales parties
+
+###  Description des principales parties
 
 | Dossier / Fichier       | Description                                                                   |
 | ----------------------- | ----------------------------------------------------------------------------- |
@@ -113,6 +100,7 @@ TP-Extraction-d-Informations-Structurées-avec-Petit-LLM/
 | **`README.md`**         | Présente le projet, son installation, son fonctionnement et son architecture. |
 
 > 🔐 **Confidentialité :** certains fichiers, données, configurations ou ressources utilisés pendant le développement ne sont volontairement pas présents dans le dépôt GitHub. Ils peuvent contenir des informations confidentielles ou des éléments spécifiques à l'environnement local.
+
 
 ##  Fonctionnalités Principales
 
