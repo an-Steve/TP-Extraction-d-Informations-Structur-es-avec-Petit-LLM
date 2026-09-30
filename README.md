@@ -225,12 +225,10 @@ deactivate
 
 ##  Informations sur le projet
 
-**Réalisé par :** ANTON NELCON Steve
-
-**Formation :** Master 2 Informatique — Ingénierie en Intelligence Artificielle
-
-**Université :** Université Paris 8
-
-**Date de dernière modification :** 30 septembre 2026
-
----
+>**Réalisé par :** ANTON NELCON Steve
+>
+>**Formation :** Master 2 Informatique — Ingénierie en Intelligence Artificielle
+>
+>**Université :** Université Paris 8
+>
+>**Date de dernière modification :** 30 septembre 2026--
