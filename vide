@@ -1,0 +1,8 @@
+flask
+flask-cors
+pydantic
+requests
+python-dotenv
+ollama
+pyyaml
+datasets
