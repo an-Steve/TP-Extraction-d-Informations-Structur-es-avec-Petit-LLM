@@ -14,7 +14,7 @@
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github&logoColor=white)](https://github.com/)
  
 ---
-# Aperçu & Captures d'écran
+### Aperçu & Captures d'écran
 
 Voici quelques illustrations et captures d'écran présentant le fonctionnement du projet :
 
@@ -39,9 +39,8 @@ Voici quelques illustrations et captures d'écran présentant le fonctionnement 
 * **Environnement Virtuel :** `venv` (PowerShell / Windows)
 * **Interface Web :** HTML, CSS, JavaScript (avec prise en charge du thème Sombre/Clair)
 
-## 📂 Architecture du projet
+##  Architecture du projet
 
-```text
 TP-Extraction-d-Informations-Structurées-avec-Petit-LLM/
 │
 ├── 📁 backend/                         # Backend Python / API
@@ -85,9 +84,9 @@ TP-Extraction-d-Informations-Structurées-avec-Petit-LLM/
 ├── 🧪 test_ollama.py                   # Test de connexion avec Ollama
 ├── 🔒 .gitignore                       # Fichiers exclus du dépôt Git
 └── 📖 README.md                        # Documentation principale du projet
-```
 
-### 🔎 Description des principales parties
+
+###  Description des principales parties
 
 | Dossier / Fichier       | Description                                                                   |
 | ----------------------- | ----------------------------------------------------------------------------- |
@@ -194,8 +193,11 @@ deactivate
 ##  Informations sur le projet
 
 **Réalisé par :** ANTON NELCON Steve
+
 **Formation :** Master 2 Informatique — Ingénierie en Intelligence Artificielle
+
 **Université :** Université Paris 8
+
 **Date de dernière modification :** 30 septembre 2026
 
 ---
