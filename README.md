@@ -103,6 +103,80 @@ TP-Extraction-d-Informations-Structurées-avec-Petit-LLM/
 
 > 🔐 **Confidentialité :** certains fichiers, données, configurations ou ressources utilisés pendant le développement ne sont volontairement pas présents dans le dépôt GitHub. Ils peuvent contenir des informations confidentielles ou des éléments spécifiques à l'environnement local.
 
+##  Fonctionnalités Principales
+
+* **Extraction d'informations structurées :** Analyse de texte brut et conversion en formats structurés.
+* **Interface Web Responsive :** Interface utilisateur ergonomique.
+* ** Mode Sombre & Mode Clair :** Basculement rapide entre un thème sombre et un thème clair via un bouton d'action. La préférence est sauvegardée localement dans le navigateur.
+## 📊 Graphiques & visualisations intégrés
+
+Le projet intègre plusieurs types de **graphiques et d'indicateurs visuels** afin de faciliter l'analyse des informations extraites et d'évaluer les performances du modèle.
+
+Ces visualisations permettent de transformer les résultats bruts du **Small LLM** en informations facilement compréhensibles.
+
+###  Graphique en barres — Distribution des entités extraites
+
+**Rôle :**
+Le graphique en barres permet de visualiser le **nombre d'occurrences pour chaque type d'entité détectée** lors de l'analyse.
+
+Exemples d'entités :
+→ Score
+→ Précision
+→ Rappel
+
+**Utilité :**
+Il permet d'obtenir rapidement une **vue d'ensemble de la répartition des informations extraites** et d'identifier les catégories les plus représentées dans le document analysé.
+
+---
+
+Graphique en camembert / Donut — Répartition des catégories
+
+**Rôle :**
+Le graphique en camembert ou en donut représente la **proportion de chaque catégorie d'entités par rapport au nombre total d'informations extraites**.
+
+**Utilité :**
+Cette représentation facilite la comparaison entre les différentes catégories et permet d'identifier rapidement les types d'informations **majoritaires ou minoritaires** dans les données analysées.
+
+---
+
+ Indicateurs de performance — Confiance et métriques du modèle
+
+**Rôle :**
+Les indicateurs de performance permettent de représenter visuellement les résultats obtenus par le **Small LLM** lors de l'extraction d'informations.
+
+Selon l'évaluation réalisée, différents indicateurs peuvent être présentés :
+
+* **Précision (Precision)** : proportion des informations extraites qui sont correctes.
+* **Rappel (Recall)** : proportion des informations pertinentes qui ont été correctement détectées.
+* **Score F1** : mesure combinant la précision et le rappel.
+* **Taux de confiance** : niveau de confiance associé aux résultats lorsque cette information est disponible.
+
+**Utilité :**
+Ces indicateurs permettent de **suivre et d'évaluer la qualité des résultats produits par le modèle** sur le jeu de données testé.
+
+---
+
+### 🎯 Objectif des visualisations
+
+L'ensemble de ces graphiques permet de disposer d'une **vue synthétique des résultats de l'extraction d'informations**.
+
+Ils facilitent notamment :
+
+```text
+Données extraites
+        ↓
+Analyse des entités
+        ↓
+Visualisation des résultats
+        ↓
+Évaluation des performances
+        ↓
+Interprétation des résultats
+```
+
+Les visualisations constituent ainsi un complément à l'extraction structurée réalisée par le LLM et rendent les résultats plus **lisibles, comparables et faciles à interpréter**.
+
+
 #  Installation et lancement
 
 ##  Activer l'environnement virtuel Python
