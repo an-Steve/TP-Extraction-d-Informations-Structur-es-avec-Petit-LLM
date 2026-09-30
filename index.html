@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Extraction de Relations — Llama 3.2 1B (Master 2 IA)</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <!-- Chart.js pour les graphiques interactifs -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-badge">TP Master 2 IA</div>
+        <h1 class="brand-title">Extracteur de Relations Structurées</h1>
+        <p class="brand-subtitle">Benchmark des stratégies de prompting avec Llama 3.2 (1B) & Re-DocRED</p>
+      </div>
+
+      <div class="header-controls">
+        <!-- Status indicator -->
+        <div id="backendStatus" class="status-badge checking">
+          <span class="status-dot"></span>
+          <span id="backendStatusText" class="status-text">Connexion backend...</span>
+        </div>
+
+        <button id="btnRetryHealth" class="btn-icon" title="Tester la connexion" aria-label="Rafraîchir statut">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <polyline points="1 20 1 14 7 14"></polyline>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+          </svg>
+        </button>
+
+        <!-- Theme Toggle (Dark / Light Mode) -->
+        <button id="btnThemeToggle" class="btn-icon theme-toggle" title="Basculer Mode Clair / Sombre" aria-label="Changer de thème">
+          <!-- Soleil (visible en mode sombre) -->
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <!-- Lune (visible en mode clair) -->
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="app-main">
+    <div class="workflow-grid">
+
+      <!-- LEFT COLUMN : INPUT & CONFIGURATION -->
+      <section class="panel-column">
+
+        <!-- STEP 1: Document Source -->
+        <article class="card step-card">
+          <div class="card-header">
+            <div class="step-tag">Étape 1</div>
+            <h2>Document Source</h2>
+          </div>
+          <p class="step-desc">Sélectionnez un document annoté du dataset Re-DocRED ou saisissez un texte libre.</p>
+
+          <div class="sample-actions">
+            <button id="btnNextSample" class="btn btn-secondary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="1 4 1 10 7 10"></polyline>
+                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+              </svg>
+              <span>Document Suivant</span>
+            </button>
+            <select id="selectSample" class="form-select" aria-label="Choisir un échantillon">
+              <option value="">-- Choisir un échantillon --</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="inputText">Texte à analyser :</label>
+            <textarea id="inputText" class="form-textarea" rows="5" placeholder="Saisissez ou collez votre texte ici..."></textarea>
+          </div>
+
+          <!-- Ground Truth Accordion -->
+          <div id="groundTruthSection" class="ground-truth-box hidden">
+            <div class="gt-header" id="gtToggleHeader">
+              <div class="gt-title">
+                <span class="gt-badge">Vérité Terrain</span>
+                <span id="gtCountText" class="gt-count">0 fait annoté</span>
+              </div>
+              <span id="gtChevron" class="chevron">▼</span>
+            </div>
+            <div id="gtContent" class="gt-content">
+              <div id="gtList" class="gt-triplet-list"></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- STEP 2: Prompting & Hyperparameters -->
+        <article class="card step-card">
+          <div class="card-header">
+            <div class="step-tag">Étape 2</div>
+            <h2>Configuration & Prompting</h2>
+          </div>
+          <p class="step-desc">Testez les 5 stratégies du TP et ajustez les hyperparamètres du modèle 1B.</p>
+
+          <!-- Strategy Selector -->
+          <div class="form-group">
+            <label for="strategySelect">Stratégie de prompting :</label>
+            <select id="strategySelect" class="form-select strategy-dropdown">
+              <option value="zeroshot_structured" selected>Zero-shot Structuré (Recommandé - Délimiteurs hermétiques)</option>
+              <option value="fewshot">Few-shot Prompting (3 exemples in-context Re-DocRED)</option>
+              <option value="cot">Chain-of-Thought (Raisonnement décomposé + JSON)</option>
+              <option value="zeroshot_simple">Zero-shot Naïf (Mention du JSON sans schéma)</option>
+              <option value="zeroshot_raw">Zero-shot Ultra-Naïf (Texte brut, 0% JSON)</option>
+            </select>
+            <p id="strategyInfo" class="input-hint">Délimiteurs SYSTEM &gt; INSTRUCTIONS &gt; DATA avec schéma cible Re-DocRED.</p>
+          </div>
+
+          <!-- Temperature Slider -->
+          <div class="form-group">
+            <div class="slider-label-row">
+              <label for="temperatureSlider">Température :</label>
+              <span id="temperatureVal" class="badge-value">0.0</span>
+            </div>
+            <input type="range" id="temperatureSlider" min="0.0" max="1.0" step="0.05" value="0.0" class="form-range" />
+            <div class="slider-ticks">
+              <span>0.0 (Déterministe)</span>
+              <span>0.3</span>
+              <span>0.7</span>
+              <span>1.0 (Créatif)</span>
+            </div>
+          </div>
+
+          <!-- Force JSON Grammar Toggle -->
+          <div class="toggle-group">
+            <label class="toggle-switch">
+              <input type="checkbox" id="forceJsonToggle" checked />
+              <span class="slider round"></span>
+            </label>
+            <div class="toggle-details">
+              <span class="toggle-title">Grammaire stricte Ollama (format: "json")</span>
+              <span class="toggle-desc">Contraint la génération de Llama 3.2 1B à un objet JSON syntaxiquement valide.</span>
+            </div>
+          </div>
+
+          <!-- Advanced Collapsible -->
+          <details class="advanced-params">
+            <summary>Paramètres d'inférence avancés (Top-P, Top-K, Num Predict)</summary>
+            <div class="advanced-grid">
+              <div class="form-group">
+                <label for="topPInput">Top-P (Nucleus) :</label>
+                <input type="number" id="topPInput" class="form-input" min="0.1" max="1.0" step="0.05" value="0.9" />
+              </div>
+              <div class="form-group">
+                <label for="topKInput">Top-K :</label>
+                <input type="number" id="topKInput" class="form-input" min="1" max="100" step="1" value="40" />
+              </div>
+              <div class="form-group">
+                <label for="numPredictInput">Max Tokens :</label>
+                <input type="number" id="numPredictInput" class="form-input" min="64" max="2048" step="64" value="512" />
+              </div>
+            </div>
+          </details>
+
+          <!-- Action Button -->
+          <div class="action-row">
+            <button id="btnExtract" class="btn btn-primary btn-block">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+              <span id="btnExtractText">Lancer l'Extraction & Mesurer</span>
+            </button>
+          </div>
+        </article>
+
+      </section>
+
+      <!-- RIGHT COLUMN : RESULTS, METRICS & VISUALIZATION -->
+      <section class="panel-column">
+
+        <!-- STEP 3: Metrics & Evaluation -->
+        <article class="card step-card">
+          <div class="card-header">
+            <div class="step-tag">Étape 3</div>
+            <h2>Métriques & Évaluation</h2>
+            <div id="execDurationBadge" class="header-pill hidden">0.00 s</div>
+          </div>
+
+          <!-- KPI Grid -->
+          <div class="kpi-grid">
+            <div class="kpi-card" id="kpiPrecisionCard">
+              <span class="kpi-title">Précision (P)</span>
+              <span id="kpiPrecision" class="kpi-value">—</span>
+              <span class="kpi-formula">TP / (TP + FP)</span>
+            </div>
+            <div class="kpi-card" id="kpiRecallCard">
+              <span class="kpi-title">Rappel (R)</span>
+              <span id="kpiRecall" class="kpi-value">—</span>
+              <span class="kpi-formula">TP / (TP + FN)</span>
+            </div>
+            <div class="kpi-card highlight" id="kpiF1Card">
+              <span class="kpi-title">F1-Score</span>
+              <span id="kpiF1" class="kpi-value">—</span>
+              <span class="kpi-formula">2 · (P · R) / (P + R)</span>
+            </div>
+            <div class="kpi-card" id="kpiJsonValidCard">
+              <span class="kpi-title">Format JSON</span>
+              <span id="kpiJsonValid" class="kpi-value">—</span>
+              <span id="kpiTokensSpeed" class="kpi-sub">— tok/s</span>
+            </div>
+          </div>
+
+          <!-- Relations Breakdown Stats -->
+          <div id="statsBar" class="stats-bar hidden">
+            <div class="stat-pill"><span id="statTP" class="pill-number tp">0</span> Vrais Positifs (TP)</div>
+            <div class="stat-pill"><span id="statFP" class="pill-number fp">0</span> Faux Positifs (FP)</div>
+            <div class="stat-pill"><span id="statFN" class="pill-number fn">0</span> Manquants (FN)</div>
+            <div class="stat-pill"><span id="statExtracted" class="pill-number">0</span> Extraits au total</div>
+          </div>
+
+          <!-- Result Tabs -->
+          <div class="tabs-bar">
+            <button class="tab-btn active" data-tab="tabComparison">Comparatif Vérité Terrain</button>
+            <button class="tab-btn" data-tab="tabYaml">Sortie YAML</button>
+            <button class="tab-btn" data-tab="tabRaw">Sortie Brute LLM</button>
+            <button class="tab-btn" data-tab="tabJson">JSON Validé</button>
+          </div>
+
+          <!-- Tab 1: Comparison View -->
+          <div id="tabComparison" class="tab-panel active">
+            <div id="comparisonContainer" class="comparison-grid">
+              <!-- Ground Truth Side -->
+              <div class="comparison-col">
+                <div class="col-header">
+                  <h3>Vérité Terrain Référence</h3>
+                  <span id="gtBadgeCount" class="count-pill">0</span>
+                </div>
+                <div id="gtCompareList" class="triplet-cards">
+                  <div class="empty-state">Aucun document chargé.</div>
+                </div>
+              </div>
+
+              <!-- Predictions Side -->
+              <div class="comparison-col">
+                <div class="col-header">
+                  <h3>Prédictions Llama 3.2 1B</h3>
+                  <span id="predBadgeCount" class="count-pill">0</span>
+                </div>
+                <div id="predCompareList" class="triplet-cards">
+                  <div class="empty-state">Lancez une extraction pour visualiser les relations.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 2: YAML View -->
+          <div id="tabYaml" class="tab-panel">
+            <div class="code-box-header">
+              <span>Format structuré YAML (prêt pour base de graphe ou pipeline)</span>
+              <button id="btnCopyYaml" class="btn-copy">Copier YAML</button>
+            </div>
+            <pre id="yamlOutput" class="code-box"><code># Le YAML généré apparaîtra ici</code></pre>
+          </div>
+
+          <!-- Tab 3: Raw LLM Output -->
+          <div id="tabRaw" class="tab-panel">
+            <div class="code-box-header">
+              <span>Texte exact renvoyé par Llama 3.2 1B via Ollama</span>
+              <button id="btnCopyRaw" class="btn-copy">Copier Brute</button>
+            </div>
+            <pre id="rawOutput" class="code-box"><code>(Aucune extraction effectuée)</code></pre>
+          </div>
+
+          <!-- Tab 4: Parsed JSON Output -->
+          <div id="tabJson" class="tab-panel">
+            <div class="code-box-header">
+              <span>JSON validé par les schémas Pydantic</span>
+              <button id="btnCopyJson" class="btn-copy">Copier JSON</button>
+            </div>
+            <pre id="jsonOutput" class="code-box"><code>{}</code></pre>
+          </div>
+
+          <!-- Save to Benchmark Button -->
+          <div class="save-benchmark-row">
+            <button id="btnSaveRun" class="btn btn-outline" disabled>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                <polyline points="7 3 7 8 15 8"></polyline>
+              </svg>
+              <span>Enregistrer ce run dans le Benchmark</span>
+            </button>
+          </div>
+        </article>
+
+      </section>
+
+    </div>
+
+    <!-- VISUAL ANALYTICS & CHARTS SECTION -->
+    <section class="charts-section">
+      <article class="card">
+        <div class="card-header">
+          <div class="step-tag">Analytique</div>
+          <h2>Graphiques & Analyse Comparative</h2>
+        </div>
+        <p class="step-desc">Visualisation graphique des métriques de précision, rappel, F1-score et performances d'inférence.</p>
+
+        <div class="charts-grid">
+          <!-- Chart 1: Benchmark Comparison -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3>Scores F1, Précision & Rappel par Stratégie</h3>
+              <span class="chart-tag">Comparatif</span>
+            </div>
+            <div class="chart-wrapper">
+              <canvas id="chartStrategies"></canvas>
+            </div>
+          </div>
+
+          <!-- Chart 2: Detection Distribution (Doughnut) -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3>Répartition des Faits (Dernier Run)</h3>
+              <span class="chart-tag">TP / FP / FN</span>
+            </div>
+            <div class="chart-wrapper doughnut-wrapper">
+              <canvas id="chartDistribution"></canvas>
+            </div>
+          </div>
+
+          <!-- Chart 3: Inference Speed & Latency -->
+          <div class="chart-card">
+            <div class="chart-header">
+              <h3>Vitesse d'Inférence (Tokens / sec)</h3>
+              <span class="chart-tag">Performance</span>
+            </div>
+            <div class="chart-wrapper">
+              <canvas id="chartSpeed"></canvas>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- STEP 4: Persistent Benchmark Registry -->
+    <section class="benchmark-section">
+      <article class="card">
+        <div class="benchmark-header">
+          <div>
+            <div class="step-tag">Étape 4</div>
+            <h2>Registre de Benchmark Re-DocRED</h2>
+            <p class="step-desc">Conservez et comparez les métriques de chaque stratégie pour votre rapport de TP.</p>
+          </div>
+          <div class="benchmark-actions">
+            <button id="btnExportCsv" class="btn btn-secondary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Exporter en CSV</span>
+            </button>
+            <button id="btnClearBenchmark" class="btn btn-ghost" title="Réinitialiser aux données de référence">
+              <span>Réinitialiser</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="benchmark-table" id="benchmarkTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Heure</th>
+                <th>Document</th>
+                <th>Stratégie</th>
+                <th>Temp.</th>
+                <th>JSON</th>
+                <th>Précision</th>
+                <th>Rappel</th>
+                <th>F1-Score</th>
+                <th>Durée</th>
+                <th>Vitesse</th>
+              </tr>
+            </thead>
+            <tbody id="benchmarkTableBody">
+              <tr class="empty-row">
+                <td colspan="11">Aucun run enregistré pour l'instant. Lancez une analyse et cliquez sur « Enregistrer ce run ».</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <!-- Footer avec la mention de réalisation demandée -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="author-banner">
+        <span class="author-badge">Réalisation</span>
+        <span class="author-name">réalisé par ANTON NELCON Steve -M2 IIA _ Paris 8</span>
+      </div>
+      <p>Projet Master 2 IA — TP Extraction d'Informations Structurées avec Petit LLM (Llama 3.2 1B & Ollama)</p>
+      <p class="footer-meta">API Flask (Port 5000) • Client Web Vanilla JavaScript, CSS3 & Chart.js</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
