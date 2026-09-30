@@ -114,45 +114,25 @@ Le projet intègre plusieurs types de **graphiques et d'indicateurs visuels** af
 
 Ces visualisations permettent de transformer les résultats bruts du **Small LLM** en informations facilement compréhensibles.
 
-###  Graphique en barres — Distribution des entités extraites
+##  Graphiques & indicateurs
 
-**Rôle :**
-Le graphique en barres permet de visualiser le **nombre d'occurrences pour chaque type d'entité détectée** lors de l'analyse.
+Le projet intègre plusieurs types de **graphiques et d'indicateurs visuels** permettant de synthétiser les résultats de l'extraction et d'évaluer les performances du **Small LLM**.
 
-Exemples d'entités :
-→ Score
-→ Précision
-→ Rappel
+| Visualisation                         | Rôle                                                                                  | Données / indicateurs                                                               | Utilité                                                                                                |
+| ------------------------------------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| 📊 **Graphique en barres**            | Visualiser le nombre d'occurrences pour chaque type d'information détectée.           | **Score**, **Précision**, **Rappel**                                                | Permet d'obtenir rapidement une vue d'ensemble des résultats et de comparer les différentes métriques. |
+| 🍩 **Graphique en camembert / Donut** | Représenter la proportion de chaque catégorie par rapport à l'ensemble des résultats. | Répartition des différentes catégories d'informations extraites.                    | Facilite l'identification des catégories **majoritaires et minoritaires**.                             |
+| 📈 **Indicateurs de performance**     | Présenter les performances obtenues par le **Small LLM** lors de l'extraction.        | **Précision (Precision)**, **Rappel (Recall)**, **Score F1**, **Taux de confiance** | Permet d'évaluer et de suivre la **qualité et la fiabilité des résultats** produits par le modèle.     |
 
-**Utilité :**
-Il permet d'obtenir rapidement une **vue d'ensemble de la répartition des informations extraites** et d'identifier les catégories les plus représentées dans le document analysé.
+###  Définition des métriques
 
----
+| Métrique                  | Définition                                                                                |
+| ------------------------- | ----------------------------------------------------------------------------------------- |
+| **Précision (Precision)** | Proportion des informations extraites qui sont correctement identifiées.                  |
+| **Rappel (Recall)**       | Proportion des informations pertinentes qui ont été correctement détectées par le modèle. |
+| **Score F1**              | Mesure combinant la précision et le rappel afin d'obtenir une évaluation globale.         |
+| **Taux de confiance**     | Niveau de confiance associé à un résultat lorsque cette information est disponible.       |
 
-Graphique en camembert / Donut — Répartition des catégories
-
-**Rôle :**
-Le graphique en camembert ou en donut représente la **proportion de chaque catégorie d'entités par rapport au nombre total d'informations extraites**.
-
-**Utilité :**
-Cette représentation facilite la comparaison entre les différentes catégories et permet d'identifier rapidement les types d'informations **majoritaires ou minoritaires** dans les données analysées.
-
----
-
- Indicateurs de performance — Confiance et métriques du modèle
-
-**Rôle :**
-Les indicateurs de performance permettent de représenter visuellement les résultats obtenus par le **Small LLM** lors de l'extraction d'informations.
-
-Selon l'évaluation réalisée, différents indicateurs peuvent être présentés :
-
-* **Précision (Precision)** : proportion des informations extraites qui sont correctes.
-* **Rappel (Recall)** : proportion des informations pertinentes qui ont été correctement détectées.
-* **Score F1** : mesure combinant la précision et le rappel.
-* **Taux de confiance** : niveau de confiance associé aux résultats lorsque cette information est disponible.
-
-**Utilité :**
-Ces indicateurs permettent de **suivre et d'évaluer la qualité des résultats produits par le modèle** sur le jeu de données testé.
 
 ---
 
