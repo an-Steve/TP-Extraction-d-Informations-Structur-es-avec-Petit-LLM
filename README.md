@@ -14,7 +14,7 @@
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github&logoColor=white)](https://github.com/)
  
 ---
-📸 Aperçu & Captures d'écran
+# Aperçu & Captures d'écran
 
 Voici quelques illustrations et captures d'écran présentant le fonctionnement du projet :
 
@@ -26,10 +26,11 @@ Voici quelques illustrations et captures d'écran présentant le fonctionnement 
 
 
 
-| Capture 1 | Capture 2 |
-|:---:|:---:|
-| <img src="https://github.com/user-attachments/assets/f908f8c3-80c6-45a1-a714-30de2d96c966" width="180"> | <img src="https://github.com/user-attachments/assets/09292c5f-650c-48eb-9c8d-ec5610749a09" width="180"> |
+###  Architecture du projet
 
+| | |
+|:---:|:---:|
+| <img src="https://github.com/user-attachments/assets/f908f8c3-80c6-45a1-a714-30de2d96c966" width="120" alt="Architecture du projet"> | <img src="https://github.com/user-attachments/assets/09292c5f-650e-48eb-9c8d-ec5610749a09" width="120" alt="Architecture du projet"> |
 ## 🛠️ Outils & Technologies Utilisés
 
 * **Langage principal :** Python
@@ -104,7 +105,7 @@ TP-Extraction-d-Informations-Structurées-avec-Petit-LLM/
 
 #  Installation et lancement
 
-## 1. Activer l'environnement virtuel Python
+##  Activer l'environnement virtuel Python
 
 Sous **Windows PowerShell**, activez l'environnement virtuel avec la commande suivante :
 
@@ -118,7 +119,7 @@ Une fois l'environnement activé, vous devriez voir **`(venv)`** apparaître au 
 (venv) PS C:\...\TP-Extraction-d-Informations-Structur-es-avec-Petit-LLM>
 ```
 
-> 💡 **Remarque :** si l'environnement virtuel n'existe pas encore, vous pouvez le créer avec :
+>  **Remarque :** si l'environnement virtuel n'existe pas encore, vous pouvez le créer avec :
 >
 > ```powershell
 > python -m venv venv
@@ -126,7 +127,7 @@ Une fois l'environnement activé, vous devriez voir **`(venv)`** apparaître au 
 
 ---
 
-## 2. Installer les dépendances
+##  Installer les dépendances
 
 Avec l'environnement virtuel activé, installez les dépendances nécessaires au projet :
 
@@ -136,7 +137,7 @@ pip install -r requirements.txt
 
 ---
 
-## 3. Démarrer le serveur backend
+##  Démarrer le serveur backend
 
 Une fois les dépendances installées, lancez le serveur Flask avec :
 
@@ -148,7 +149,7 @@ Le backend démarre alors sur le serveur local.
 
 ---
 
-## 4. Accéder à l'application web
+##  Accéder à l'application web
 
 Ouvrez votre navigateur et rendez-vous à l'adresse suivante :
 
@@ -158,7 +159,7 @@ L'interface web de l'application sera alors accessible localement.
 
 ---
 
-## ⚡ Résumé des commandes
+##  Résumé des commandes
 
 Pour lancer rapidement le projet après son installation :
 
@@ -188,3 +189,13 @@ L'environnement virtuel peut ensuite être désactivé avec :
 ```powershell
 deactivate
 ```
+
+
+##  Informations sur le projet
+
+**Réalisé par :** ANTON NELCON Steve
+**Formation :** Master 2 Informatique — Ingénierie en Intelligence Artificielle
+**Université :** Université Paris 8
+**Date de dernière modification :** 30 septembre 2026
+
+---
