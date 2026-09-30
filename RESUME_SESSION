@@ -1,0 +1,139 @@
+# 💾 Journal de Session & Guide de Reprise (Save Session)
+
+> **Date de sauvegarde** : 29 septembre 2026  
+> **Contexte** : Master 2 IA — TP Extraction d'Informations Structurées avec Petit LLM  
+> **Modèle** : `Llama-3.2-1B` via Ollama local  
+> **Stack** : Backend Flask (Port 5000) + Frontend React Vite (Port 5173)
+
+---
+
+## 📌 1. État d'Avancement Global
+
+| Phase | Intitulé | Statut | Détails |
+|---|---|---|---|
+| **Phase 0** | Cadrage du sujet & Analyse des 6 notebooks | **100% Terminé** | Synthèse rédigée dans [docs/RAPPORT_ANALYSE_NOTEBOOKS.md](file:///C:/MASTER2_IA/LLM_Cour/Tp1/docs/RAPPORT_ANALYSE_NOTEBOOKS.md). |
+| **Phase 1** | Environnement virtuel Python & Dépendances | **100% Réalisé** | `venv` configuré, dépendances installées (`flask`, `pydantic`, `ollama`, `pyyaml`...). |
+| **Phase 2** | Backend Flask Modulaire (Services & API) | **100% Codé** | Implémenté : `main.py`, `schemas.py`, `api/routes.py`, `services/`. Échantillons Re-DocRED avec vérités terrain inclus. |
+| **Phase 3** | Frontend Web React (Vite + JavaScript) | **100% Terminé & Refondu** | Design System Retouch (palette 3 couleurs Slate/Purple, zéro emoji), workflow linéaire en 4 étapes, évaluation sémantique, registre de benchmark et export CSV. |
+| **Phase 4** | Benchmark Re-DocRED & Comparaison des Métriques | **Prêt à être lancé** | Possibilité de tester directement dans l'UI ou via script d'évaluation automatique (`evaluation/benchmark.py`). |
+| **Phase 5** | Rapport Final de TP & Soutenance | **À faire** | Interprétation des résultats et démonstration. |
+
+---
+
+## 🏗️ 2. Structure Actuelle du Projet
+
+```text
+Tp1/
+├── backend/                       # API Flask (Port 5000)
+│   ├── main.py                    # Point d'entrée principal & CORS
+│   ├── schemas.py                 # Validation Pydantic (RelationItem, ExtractionRequest/Response)
+│   ├── api/
+│   │   ├── __init__.py
+│   │   └── routes.py              # Blueprint des routes (/health, /strategies, /samples avec GT, /extract)
+│   ├── services/
+│   │   ├── __init__.py
+│   │   ├── ollama_service.py      # Client Ollama SDK (température, sampling, force_json)
+│   │   ├── prompt_service.py      # Les 5 stratégies de prompting (raw, simple, structuré, fewshot, cot)
+│   │   └── formatter_service.py   # Extraction JSON, validation Pydantic, conversion YAML
+│   └── test_ollama.py             # Script de vérification de connexion
+│
+├── frontend/                      # Interface Web React + Vite (Port 5173)
+│   ├── package.json
+│   ├── vite.config.js
+│   └── src/
+│       ├── main.jsx
+│       ├── App.jsx                # Tableau de bord complet : Refresh, moteur de métriques (P/R/F1), comparatif
+│       ├── App.css                # Styles modernes, badges, grilles KPI
+│       └── api.js                 # Client HTTP vers Flask (support du paramètre forceJson)
+│
+├── docs/                          # Dossier de documentation & guides
+│   ├── TP_Extraction_Information_LLM.pdf  # Sujet officiel du TP
+│   ├── GUIDE_TP.md                # Guide maître et feuille de route détaillée
+│   ├── PHASE_1.md                 # Configuration environnement (venv, Ollama pull)
+│   ├── PHASE_2.md                 # Développement backend Flask & services
+│   ├── PHASE_3.md                 # Développement frontend React + Vite refondu
+│   ├── OLLAMA_API.md              # Documentation API & SDK Ollama Python
+│   ├── LLAMA_3_2_1B.md            # Spécifications et prompt engineering Llama 3.2 1B
+│   ├── RAPPORT_ANALYSE_NOTEBOOKS.md # Analyse complète des 6 notebooks de cours
+│   └── RESUME_SESSION.md          # Le présent document de reprise
+│
+├── notebook/                      # Les 6 notebooks d'exemples du cours
+├── architecture.md                # Schémas Mermaid d'architecture 3-tiers
+├── roadmap.md                     # Tableau de bord du projet
+├── GEMINI.md                      # Règles d'or de l'agent (Mentor, aucune commande système)
+├── requirements.txt               # Dépendances Python
+└── .gitignore                     # Exclusions Git (venv, node_modules, cache...)
+```
+
+---
+
+## 🎯 3. Les Nouvelles Fonctionnalités Clés du Frontend
+
+1. **Bouton `🎲 Document Suivant (Refresh)`** :
+   - Cycle à travers les 5 documents de référence Re-DocRED configurés dans le backend.
+   - Charge instantanément le texte ainsi que la **Vérité Terrain (Ground Truth)** correspondante.
+
+2. **Moteur d'Évaluation Sémantique en Direct** :
+   - Normalisation des chaînes de caractères (minuscules, retrait des accents, ponctuation).
+   - Détection des équivalences sémantiques entre relations (`educated at` / `educated_at`, `employer` / `employed_by` / `works at`, etc.).
+   - Calcul instantané de :
+     - **Précision** : $TP / (TP + FP)$
+     - **Rappel** : $TP / (TP + FN)$
+     - **F1-Score** : $2 \times (P \times R) / (P + R)$
+
+3. **Double Colonne Interactive (Vérité Terrain vs Prédictions)** :
+   - Colonne gauche : Faits attendus avec badges `✓ Retrouvé` ou `✗ Non extrait`.
+   - Colonne droite : Triplets extraits par Llama 3.2 1B avec badges `✓ Match Vérité Terrain` ou `⚠️ Faux Positif / Non annoté`.
+
+4. **Bascule de Grammaire Strict (`force_json`)** :
+   - Activé par défaut pour garantir la stabilité de l'interface (`format: "json"` d'Ollama).
+   - Désactivable via une case à cocher pour observer et évaluer la syntaxe native brute générée par le modèle 1B.
+
+5. **3 Onglets de Restitution** :
+   - ⚖️ **Benchmark & Vérité Terrain** (vue comparatiste)
+   - 📄 **Sortie YAML** (format structuré prêt pour ingestion)
+   - 🔍 **Réponse Brute LLM** (texte exact produit par le modèle avant parsing)
+
+---
+
+## 🚀 4. Guide de Reprise Rapide
+
+### Étape A : Vérifier qu'Ollama est actif avec le modèle 1B
+```powershell
+ollama list
+# Si llama3.2:1b n'est pas listé :
+ollama pull llama3.2:1b
+```
+
+---
+
+### Étape B : Démarrer le Backend Flask (Terminal 1)
+```powershell
+# 1. Se placer à la racine
+cd C:\MASTER2_IA\LLM_Cour\Tp1
+
+# 2. Activer l'environnement virtuel
+.\venv\Scripts\Activate.ps1
+
+# 3. Lancer le serveur
+python backend/main.py
+```
+*(Le backend tourne sur `http://127.0.0.1:5000`)*.
+
+---
+
+### Étape C : Démarrer le Frontend React (Terminal 2)
+```powershell
+cd C:\MASTER2_IA\LLM_Cour\Tp1\frontend
+npm run dev
+```
+*(Le frontend tourne sur `http://localhost:5173`)*.
+
+---
+
+### Étape D : Tester dans le navigateur
+Ouvrez votre navigateur sur **`http://localhost:5173`** :
+1. La pastille doit afficher **"Llama 3.2 1B Opérationnel (5000)"** en vert.
+2. Cliquez sur **`🎲 Document Suivant (Refresh)`** pour charger un texte Re-DocRED annoté.
+3. Choisissez une stratégie (ex: *Zero-shot Structuré* ou *Few-shot*).
+4. Cliquez sur **`⚡ Lancer l'Extraction & Mesurer`** : le score F1 s'affiche avec la comparaison directe !
